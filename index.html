@@ -45,12 +45,8 @@
 </tr>
 </table>-->
 <div name="remains" id="remains"></div>
-<form name="count" style="position:fixed; bottom:0px; right:0px; display:none;">
-    <input type="text" id="y" value="">
-    <input type="text" id="m" value="">
-    <input type="text" id="d" value="">
-    <input type="text" id="h" value="">
-</form>
+<input type="button" id="b" value="好撚嘈呀" onClick="document.getElementById('wtf').value = 'nope'">
+<input type="hidden" id="wtf" value="">
 
 
 <script>
@@ -108,18 +104,20 @@ function onPermissionDenied () {
 }
 
 function doNotification (nt, nb) {
-	var a = String(nt);
-	var myNotification = new Notify(a, {
-		body: nb,
-      	icon: 'https://static.mengniang.org/common/thumb/e/e4/Sad_frog.jpg/250px-Sad_frog.jpg',
-		notifyShow: onShowNotification,
-		notifyClose: onCloseNotification,
-		notifyClick: onClickNotification,
-		notifyError: onErrorNotification,
-		timeout: 1
-	});
-
-	myNotification.show();
+	if(document.getElementById('wtf').value != 'nope') {
+		var a = String(nt);
+		var myNotification = new Notify(a, {
+			body: nb,
+			icon: 'https://static.mengniang.org/common/thumb/e/e4/Sad_frog.jpg/250px-Sad_frog.jpg',
+			notifyShow: onShowNotification,
+			notifyClose: onCloseNotification,
+			notifyClick: onClickNotification,
+			notifyError: onErrorNotification,
+			timeout: 1
+		});
+	
+		myNotification.show();
+	}
 }
 
 if (!Notify.needsPermission) {
