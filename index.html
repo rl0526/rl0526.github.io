@@ -1,29 +1,14 @@
-<?php
-$nextFriday = strtotime('next friday');
-$y = date('Y', $nextFriday);
-$m = date('m', $nextFriday);
-$d = date('d', $nextFriday);
-$l = 18;
-?>
 <!DOCTYPE html>
 <html>
-
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  	<script src="https://alexgibson.github.io/notify.js/js/notify.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <title>幾撚時先放假？</title>
     <style>
 	body{
 		background-color: #EFEFEF;
 	}
-	table td{
-		white-space:nowrap;
-		width: 1%;
-	}
-	table tr.heading td{
-		border-bottom:1px solid black;	
-	}
-	#y{width:40px}#m{width:20px}#d{width:20px}#h{width:20px}
-	img{height:130px; width:auto}
 	</style>
 </head>
 
@@ -52,52 +37,147 @@ $l = 18;
 </tr>
 </table>-->
 <div name="remains" id="remains"></div>
-<form name="count" style="position:fixed; bottom:0px; right:0px; display:none;">
-    <input type="text" id="y" value="<?=$y?>">
-    <input type="text" id="m" value="<?=$m?>">
-    <input type="text" id="d" value="<?=$d?>">
-    <input type="text" id="h" value="<?=$l?>">
-</form>
+<input type="button" id="b" value="好撚嘈呀" onClick="document.getElementById('wtf').value = 'nope'">
+<input type="hidden" id="wtf" value="">
 
-
+<div id="qq" style="width: 500px; margin-top: 20px;">
+<div style="margin:10px 0px; color: red;">Hi.</div>
+<textarea class="c" style="width:300px; height:60px; border:1px solid black; border-radius: 7px; background-color: transparent;"></textarea>
+</div>
 <script>
+$(document).ready(function(e) {
+    $('.c').keydown(function (e){
+		var t = $(this);
+		if(e.which === 13 && !e.shiftKey && !e.ctrlKey){
+			e.preventDefault();
+			var rs = [
+				'0)',
+				'good'
+			];
+			var rn = Math.floor(Math.random()*rs.length);
+			
+			var re = rs[rn];
+			
+			setTimeout( function() {$('#qq')
+				.append(
+					$('<div/>', {
+						style: 'margin:10px 0px; color: red;'
+					}).html(re)
+				).append(
+					t.clone(true)
+				);	
+				$('#qq textarea:last-child').focus();
+			}, 1000);
+			
+			
+		}
+	})
+});
 
+
+function onShowNotification () {
+	console.log('notification is shown!');
+}
+
+function onCloseNotification () {
+	console.log('notification is closed!');
+}
+
+function onClickNotification () {
+	console.log('notification was clicked!');
+}
+
+function onErrorNotification () {
+	console.error('Error showing notification. You may need to request permission.');
+}
+
+function onPermissionGranted () {
+	console.log('Permission has been granted by the user');
+	doNotification('屌', '幾時放假?');
+}
+
+function onPermissionDenied () {
+	console.warn('Permission has been denied by the user');
+}
+
+function doNotification (nt, nb) {
+	if(document.getElementById('wtf').value != 'nope') {
+		var a = String(nt);
+		var myNotification = new Notify(a, {
+			body: nb,
+			icon: 'https://static.mengniang.org/common/thumb/e/e4/Sad_frog.jpg/250px-Sad_frog.jpg',
+			notifyShow: onShowNotification,
+			notifyClose: onCloseNotification,
+			notifyClick: onClickNotification,
+			notifyError: onErrorNotification,
+			timeout: 1
+		});
+	
+		myNotification.show();
+	}
+}
+
+if (!Notify.needsPermission) {
+	doNotification();
+} else if (Notify.isSupported()) {
+	Notify.requestPermission(onPermissionGranted, onPermissionDenied);
+}
+		
+		
+Date.prototype.setDay = function(dayOfWeek) {
+    this.setDate(this.getDate() - this.getDay() + dayOfWeek);
+};
+
+
+var nf = new Date();
+nf.setDay(5);
+var nfy=nf.getYear();
+if (nfy < 1000)
+nfy+=1900;
+var nfm=nf.getMonth();
+var nfd=nf.getDate();
+var nfh=nf.getHours();
 var montharray=new Array("Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec");
 
 function countdown(yr,m,d,hr){
 theyear=yr;themonth=m;theday=d;thehr=hr
-var today=new Date()
-var todayy=today.getYear()
+var today=new Date();
+var todayy=today.getYear();
 if (todayy < 1000)
-todayy+=1900
-var todaym=today.getMonth()
-var todayd=today.getDate()
-var todayh=today.getHours()
-var todaymin=today.getMinutes()
-var todaysec=today.getSeconds()
-var todaystring=montharray[todaym]+" "+todayd+", "+todayy+" "+todayh+":"+todaymin+":"+todaysec
-var futurestring=montharray[m-1]+" "+d+", "+yr+" "+hr+":00:00"
-dd=Date.parse(futurestring)-Date.parse(todaystring)
-dhr=Math.floor(dd/(60*60*1000))
-drm=Math.floor(((dd%(60*60*1000*24))%(60*60*1000))/(60*1000)*1)
-drs=Math.floor((((dd % (60 * 60 * 1000 * 24)) % (60 * 60 * 1000)) % (60 * 1000)) / 1000 * 1)
-dm=Math.floor(dd/(60*1000))
-ds=Math.floor(dd/(1000))
+todayy+=1900;
+var todaym=today.getMonth();
+var todayd=today.getDate();
+var todayh=today.getHours();
+var todaymin=today.getMinutes();
+var todaysec=today.getSeconds();
+var todaystring=montharray[todaym]+" "+todayd+", "+todayy+" "+todayh+":"+todaymin+":"+todaysec;
+var futurestring=montharray[m]+" "+d+", "+yr+" "+hr+":00:00";
+dd=Date.parse(futurestring)-Date.parse(todaystring);
+dhr=Math.floor(dd/(60*60*1000));
+drm=Math.floor(((dd%(60*60*1000*24))%(60*60*1000))/(60*1000)*1);
+drs=Math.floor((((dd % (60 * 60 * 1000 * 24)) % (60 * 60 * 1000)) % (60 * 1000)) / 1000 * 1);
+dm=Math.floor(dd/(60*1000));
+ds=Math.floor(dd/(1000));
 if(dhr==0&&dm==0&&ds==1){
-document.getElementById('remains').innerHTML="放假啦屌你老味!!!";;
-return
+	document.getElementById('remains').innerHTML="放假啦屌你老味!!!";
+	return;
+}else {
+	//document.getElementById('remains').innerHTML="乜既啦依爹 麼喎雪哥是 哂依高媽爹哈是裂嚕既爹 距離放假淨番最後 "+dhr+"個鐘零"+drm+"分鐘 咋";
+	var fuck = "仲有 "+dhr+" 個鐘 "+drm+" 分零 "+drs+" 秒先放假";
+	var how = "點撚樣捱？";
+	document.getElementById('remains').innerHTML = fuck + '<br />' + how;
+	//notifyMe(fuck, how);
+	doNotification(fuck, how);
 }
-else
-//document.getElementById('remains').innerHTML="乜既啦依爹 麼喎雪哥是 哂依高媽爹哈是裂嚕既爹 距離放假淨番最後 "+dhr+"個鐘零"+drm+"分鐘 咋";
-document.getElementById('remains').innerHTML="仲有 "+dhr+" 個鐘 "+drm+" 分零 "+drs+" 秒先放假<br />點撚樣捱？";
-setTimeout("count()",1000)
+setTimeout("count()",1000);
 }
 
 function count(){
-	countdown(document.getElementById('y').value,document.getElementById('m').value,document.getElementById('d').value,document.getElementById('h').value)
+	countdown(nfy, nfm, nfd, 18);
 }
 
-count()
+count();
+
 </script>
 
 </body>
