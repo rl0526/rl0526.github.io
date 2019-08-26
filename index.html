@@ -40,10 +40,10 @@
 <input type="button" id="b" value="好撚嘈呀" onClick="document.getElementById('wtf').value = 'nope'">
 <input type="hidden" id="wtf" value="">
 
-<div id="qq" style="width: 500px; margin-top: 20px;">
+<!--<div id="qq" style="width: 500px; margin-top: 20px;">
 <div style="margin:10px 0px; color: red;">Hi.</div>
 <textarea class="c" style="width:300px; height:60px; border:1px solid black; border-radius: 7px; background-color: transparent;"></textarea>
-</div>
+</div>-->
 <script>
 $(document).ready(function(e) {
     $('.c').keydown(function (e){
@@ -110,7 +110,7 @@ function doNotification (nt, nb) {
 			notifyClose: onCloseNotification,
 			notifyClick: onClickNotification,
 			notifyError: onErrorNotification,
-			timeout: 1
+			timeout: 10
 		});
 	
 		myNotification.show();
