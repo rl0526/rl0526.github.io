@@ -2,8 +2,7 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-  	<script src="https://alexgibson.github.io/notify.js/js/notify.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <title>幾撚時先放假？</title>
     <style>
 	body{
@@ -75,55 +74,41 @@ $(document).ready(function(e) {
 });
 
 
-function onShowNotification () {
-	console.log('notification is shown!');
+function notifyMe(nt, nb) {
+    if (!window.Notification) {
+        console.log('Browser does not support notifications.');
+    } else {
+        // check if permission is already granted
+        if (Notification.permission === 'granted') {
+			notifyBox(nt, nb)
+        } else {
+            // request permission from user
+            Notification.requestPermission().then(function (p) {
+                if (p === 'granted') {
+                    notifyBox(nt, nb)
+                } else {
+                    console.log('User blocked notifications.');
+                }
+            }).catch(function (err) {
+                console.error(err);
+            });
+        }
+    }
 }
 
-function onCloseNotification () {
-	console.log('notification is closed!');
-}
-
-function onClickNotification () {
-	console.log('notification was clicked!');
-}
-
-function onErrorNotification () {
-	console.error('Error showing notification. You may need to request permission.');
-}
-
-function onPermissionGranted () {
-	console.log('Permission has been granted by the user');
-	doNotification('屌', '幾時放假?');
-}
-
-function onPermissionDenied () {
-	console.warn('Permission has been denied by the user');
-}
-
-function doNotification (nt, nb) {
-	if(document.getElementById('wtf').value != 'nope') {
-		var a = String(nt);
-		var myNotification = new Notify(a, {
-			body: nb,
-			icon: 'https://static.mengniang.org/common/thumb/e/e4/Sad_frog.jpg/250px-Sad_frog.jpg',
-			notifyShow: onShowNotification,
-			notifyClose: onCloseNotification,
-			notifyClick: onClickNotification,
-			notifyError: onErrorNotification,
-			timeout: 10
-		});
+function notifyBox(nt, nb){
+	var a = String(nt);
+	// show notification here
+	var notify = new Notification(a, {
+		body: nb,
+		icon: 'https://static.mengniang.org/common/thumb/e/e4/Sad_frog.jpg/250px-Sad_frog.jpg',
+	});
 	
-		myNotification.show();
+	if(document.getElementById('wtf').value != 'nope') {
+		notify.show();
 	}
 }
-
-if (!Notify.needsPermission) {
-	doNotification();
-} else if (Notify.isSupported()) {
-	Notify.requestPermission(onPermissionGranted, onPermissionDenied);
-}
-		
-		
+	
 Date.prototype.setDay = function(dayOfWeek) {
     this.setDate(this.getDate() - this.getDay() + dayOfWeek);
 };
@@ -167,7 +152,7 @@ if(dhr==0&&dm==0&&ds==1){
 	var how = "點撚樣捱？";
 	document.getElementById('remains').innerHTML = fuck + '<br />' + how;
 	//notifyMe(fuck, how);
-	doNotification(fuck, how);
+	notifyMe(fuck, how);
 }
 setTimeout("count()",1000);
 }
