@@ -50,6 +50,7 @@
 $(document).ready(function(e) {
     $('.c').keydown(function (e){
 		var t = $(this);
+	    	var i = t.val();
 		if(e.which === 13 && !e.shiftKey && !e.ctrlKey){
 			e.preventDefault();
 			var rs = [
@@ -60,16 +61,18 @@ $(document).ready(function(e) {
 			
 			var re = rs[rn];
 			
-			setTimeout( function() {$('#qq')
+			$('#qq')
 				.append(
 					$('<div/>', {
 						style: 'margin:30px 0px; color: red;'
 					}).html(re)
 				).append(
-					t.clone(true)
+					$('<div/>', {
+						style: 'color: red;',
+						class: 'c-right'
+					}).html(i.replace(/(?:\r\n|\r|\n)/g, '<br>');
 				);	
 				$('#qq textarea:last-child').val('').focus();
-			}, 500);
 			
 			
 		}
