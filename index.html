@@ -44,7 +44,7 @@
 
 <div id="qq" style="width: 500px; margin-top: 20px;">
 <div style="margin:10px 0px; color: red;">Hi. Let's chat with me.</div>
-<textarea id="chat-input" class="c" style="width:300px; height:60px; border:1px solid black; border-radius: 7px; background-color: transparent;"></textarea>
+<textarea id="chat-input" class="c" style="width:300px; height:60px; border:1px solid black; border-radius: 7px; background-color: transparent; margin-left:30px"></textarea>
 </div>
 <script>
 $(document).ready(function(e) {
@@ -152,7 +152,7 @@ if(dhr==0&&dm==0&&ds==1){
 	var fuck = "距離放假仲有 "+dhr+" 個鐘 "+drm+" 分零 "+drs+" 秒";
 	var how = "點撚樣捱？";
 	document.getElementById('remains').innerHTML = fuck + '<br />' + how;
-	if(drs % 10 == 0){
+	if(drs % 20 == 0){
 		notifyMe(fuck, how);
 	}
 }
