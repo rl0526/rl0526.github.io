@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,8 +9,53 @@
 	body{
 		background-color: #EFEFEF;
 	}
+	.c-left{
+		word-wrap: break-word;
+		max-width:200px;
+		float:left;
+	}
 	.c-right{
-		margin-left:50px;
+		word-wrap: break-word;
+		max-width:200px;
+		float: right;
+	}
+	.speech-bubble {
+		position: relative;
+		background: #FFC0CB;
+		border-radius: .4em;
+		padding: 15px;
+	}
+
+	.speech-bubble-left:after {
+		content: '';
+		position: absolute;
+		left: 0;
+		top: 50%;
+		width: 0;
+		height: 0;
+		border: 12px solid transparent;
+		border-right-color: #FFC0CB;
+		border-left: 0;
+		margin-top: -12px;
+		margin-left: -12px;
+	}
+
+	.speech-bubble-right:after {
+		content: '';
+		position: absolute;
+		right: 0;
+		top: 50%;
+		width: 0;
+		height: 0;
+		border: 12px solid transparent;
+		border-left-color: #FFC0CB;
+		border-right: 0;
+		margin-top: -12px;
+		margin-right: -12px;
+	}
+	
+	.clearfix{
+		clear: both;
 	}
 	</style>
 </head>
@@ -43,9 +89,15 @@
 <input type="button" id="b" value="唔洗你話我知" onClick="document.getElementById('wtf').value = 'nope'">
 <input type="hidden" id="wtf" value="">
 
-<div id="qq" style="width: 500px; margin-top: 20px;">
-<div style="margin:10px 0px; color: red;">Hi. Let's chat with me.</div>
-<textarea id="chat-input" class="c" style="width:300px; height:60px; border:1px solid black; border-radius: 7px; background-color: transparent; margin-left:30px"></textarea>
+<div style="width:400px; margin-top: 20px; padding:10px;">
+<div id="qq" style="">
+<div class="speech-bubble speech-bubble-left c-left" style="margin:10px 0px;">Hi. Let's chat with me.</div>
+<div class="clearfix">
+</div>
+</div>
+<div style="text-align:right;">
+<textarea id="chat-input" class="c" style="width:300px; height:60px; border:1px solid black; border-radius: 7px; background-color: transparent;"></textarea>
+</div>
 </div>
 <script>
 $(document).ready(function(e) {
@@ -62,19 +114,26 @@ $(document).ready(function(e) {
 			
 			var re = rs[rn];
 			
-			$('#chat-input')
-				.prepend(
+			$('#qq')
+				.append(
 					$('<div/>', {
-						style: 'color: red;',
-						class: 'c-right'
+						class: 'speech-bubble speech-bubble-right c-right',
 					}).html(i.replace(/(?:\r\n|\r|\n)/g, '<br>'))
-				).prepend(
+				).append(
 					$('<div/>', {
-						style: 'margin:30px 0px; color: red;'
+						class: 'clearfix'
+					})
+				).append(
+					$('<div/>', {
+						class: 'speech-bubble speech-bubble-left c-left'
 					}).html(re)
+				).append(
+					$('<div/>', {
+						class: 'clearfix'
+					})
 				);	
-				$('#qq textarea:last-child').val('').focus();
-			
+				
+			$('#chat-input').val('').focus();
 			
 		}
 	})
