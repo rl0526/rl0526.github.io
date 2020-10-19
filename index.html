@@ -62,15 +62,15 @@ $(document).ready(function(e) {
 			var re = rs[rn];
 			
 			$('#qq')
-				.append(
-					$('<div/>', {
-						style: 'margin:30px 0px; color: red;'
-					}).html(re)
-				).append(
+				.prepend(
 					$('<div/>', {
 						style: 'color: red;',
 						class: 'c-right'
 					}).html(i.replace(/(?:\r\n|\r|\n)/g, '<br>'))
+				).prepend(
+					$('<div/>', {
+						style: 'margin:30px 0px; color: red;'
+					}).html(re)
 				);	
 				$('#qq textarea:last-child').val('').focus();
 			
@@ -108,7 +108,7 @@ function notifyBox(nt, nb){
 	if($('#wtf').val() != 'nope'){
 		var notify = new Notification(a, {
 			body: nb,
-			icon: 'https://static.mengniang.org/common/thumb/e/e4/Sad_frog.jpg/250px-Sad_frog.jpg',
+			icon: 'https://img.moegirl.org.cn/common/thumb/e/e4/Sad_frog.jpg/250px-Sad_frog.jpg',
 		});
 	}
 }
