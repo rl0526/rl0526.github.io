@@ -8,6 +8,9 @@
 	body{
 		background-color: #EFEFEF;
 	}
+	.c-right{
+		margin-left:50px;
+	}
 	</style>
 </head>
 
@@ -40,8 +43,8 @@
 <input type="hidden" id="wtf" value="">
 
 <div id="qq" style="width: 500px; margin-top: 20px;">
-<div style="margin:10px 0px; color: red;">Hi.</div>
-<textarea class="c" style="width:300px; height:60px; border:1px solid black; border-radius: 7px; background-color: transparent;"></textarea>
+<div style="margin:10px 0px; color: red;">Hi. Let's chat with me.</div>
+<textarea id="chat-input" class="c" style="width:300px; height:60px; border:1px solid black; border-radius: 7px; background-color: transparent;"></textarea>
 </div>
 <script>
 $(document).ready(function(e) {
@@ -60,7 +63,7 @@ $(document).ready(function(e) {
 			setTimeout( function() {$('#qq')
 				.append(
 					$('<div/>', {
-						style: 'margin:10px 0px; color: red;'
+						style: 'margin:30px 0px; color: red;'
 					}).html(re)
 				).append(
 					t.clone(true)
@@ -99,10 +102,12 @@ function notifyMe(nt, nb) {
 function notifyBox(nt, nb){
 	var a = String(nt);
 	// show notification here
-	var notify = new Notification(a, {
-		body: nb,
-		icon: 'https://static.mengniang.org/common/thumb/e/e4/Sad_frog.jpg/250px-Sad_frog.jpg',
-	});
+	if($('#wtf').val() != 'nope'){
+		var notify = new Notification(a, {
+			body: nb,
+			icon: 'https://static.mengniang.org/common/thumb/e/e4/Sad_frog.jpg/250px-Sad_frog.jpg',
+		});
+	}
 }
 	
 Date.prototype.setDay = function(dayOfWeek) {
@@ -147,7 +152,7 @@ if(dhr==0&&dm==0&&ds==1){
 	var fuck = "距離放假仲有 "+dhr+" 個鐘 "+drm+" 分零 "+drs+" 秒";
 	var how = "點撚樣捱？";
 	document.getElementById('remains').innerHTML = fuck + '<br />' + how;
-	if(drs % 5 == 0){
+	if(drs % 10 == 0){
 		notifyMe(fuck, how);
 	}
 }
