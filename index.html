@@ -38,7 +38,7 @@
 <td><img src="http://cfs15.tistory.com/upload_control/download.blog?fhandle=YmxvZzE0MDA2NEBmczE1LnRpc3RvcnkuY29tOi9hdHRhY2gvNC80NzguanBn"></td>
 </tr>
 </table>-->
-<img src="https://img.moegirl.org.cn/common/thumb/e/e4/Sad_frog.jpg/250px-Sad_frog.jpg" width="100">
+<img src="https://i.imgur.com/6ERJn04.jpg" width="100">
 <div name="remains" id="remains"></div>
 <input type="button" id="b" value="唔洗你話我知" onClick="document.getElementById('wtf').value = 'nope'">
 <input type="hidden" id="wtf" value="">
@@ -62,7 +62,7 @@ $(document).ready(function(e) {
 			
 			var re = rs[rn];
 			
-			$('#qq')
+			$('#chat-input')
 				.prepend(
 					$('<div/>', {
 						style: 'color: red;',
@@ -109,7 +109,7 @@ function notifyBox(nt, nb){
 	if($('#wtf').val() != 'nope'){
 		var notify = new Notification(a, {
 			body: nb,
-			icon: 'https://img.moegirl.org.cn/common/thumb/e/e4/Sad_frog.jpg/250px-Sad_frog.jpg',
+			icon: 'https://i.imgur.com/6ERJn04.jpg',
 		});
 	}
 }
