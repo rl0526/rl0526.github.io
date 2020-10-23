@@ -211,7 +211,7 @@ drm=Math.floor(((dd%(60*60*1000*24))%(60*60*1000))/(60*1000)*1);
 drs=Math.floor((((dd % (60 * 60 * 1000 * 24)) % (60 * 60 * 1000)) % (60 * 1000)) / 1000 * 1);
 dm=Math.floor(dd/(60*1000));
 ds=Math.floor(dd/(1000));
-if(dhr==0&&dm==0&&ds==1){
+if(dhr<=0 && drm<=0 && drs<=0){
 	document.getElementById('remains').innerHTML="放假啦屌你老味！！！";
 	return;
 }else {
