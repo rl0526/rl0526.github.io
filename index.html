@@ -212,12 +212,17 @@ drs=Math.floor((((dd % (60 * 60 * 1000 * 24)) % (60 * 60 * 1000)) % (60 * 1000))
 dm=Math.floor(dd/(60*1000));
 ds=Math.floor(dd/(1000));
 if(dhr==0&&dm==0&&ds==1){
-	document.getElementById('remains').innerHTML="放假啦屌你老味!!!";
+	document.getElementById('remains').innerHTML="放假啦屌你老味！！！";
 	return;
 }else {
 	//document.getElementById('remains').innerHTML="乜既啦依爹 麼喎雪哥是 哂依高媽爹哈是裂嚕既爹 距離放假淨番最後 "+dhr+"個鐘零"+drm+"分鐘 咋";
-	var fuck = "距離放假仲有 "+dhr+" 個鐘零 "+drm+" 分鐘零 "+drs+" 秒";
-	var how = "點撚樣捱？";
+	if(dhr <= 9){
+		var fuck = "距離放假淨番最後 "+dhr+" 個鐘零 "+drm+" 分鐘零 "+drs+" 秒";
+		var how = "加油呀！！！";
+	} else {
+		var fuck = "距離放假仲有 "+dhr+" 個鐘零 "+drm+" 分鐘零 "+drs+" 秒";
+		var how = "點撚樣捱？";
+	}
 	document.getElementById('remains').innerHTML = fuck + '<br />' + how;
 	if(drs % 15 == 0){
 		notifyMe(fuck, how);
